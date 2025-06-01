@@ -1,0 +1,73 @@
+create database kantintelkom;
+use kantintelkom;
+
+create table cantens(
+id int not null auto_increment primary key,
+judul varchar (50) not null,
+foto varchar (50) not null
+);
+
+insert into cantens value
+(1,"bu hanna", "img/hanna.jpg" ),
+(2, "bu kesya", "img/kesya.jpg" ),
+(3, "pak zev", "img/zev.jpg" ),
+(4, "pak rasya", "img/rasya.jpg" ),
+(5, "pak hisham", "img/hisham.jpg" );
+
+create table menu(
+id int not null auto_increment primary key,
+canten_id int not null,
+nama varchar(50) not null,
+harga int not null,
+foreign key (canten_id) references cantens(id) on delete cascade
+);
+
+INSERT INTO menu (id, canten_id, nama, harga) VALUES
+(1, 1, 'ikan bakar', 7000),
+(2, 1, 'ayam goreng', 10000),
+(3, 1, 'ayam bakar', 10000),
+(4, 1, 'ikan goreng', 7000),
+(5, 2, 'seblak', 5000),
+(6, 2, 'soto', 5000),
+(7, 2, 'baso', 5000),
+(8, 2, 'somay', 5000),
+(9, 3, 'es krim coco', 3000),
+(10, 3, 'es krim duren', 3000),
+(11, 3, 'es krim berry', 3000),
+(12, 3, 'es krim oreo', 3000),
+(13, 4, 'jus mangga', 3000),
+(14, 4, 'jus jeruk', 3000),
+(15, 4, 'jus pisang', 3000),
+(16, 4, 'jus kiwi', 3000),
+(17, 5, 'snack', 1000),
+(18, 5, 'kerupuk', 1000),
+(19, 5, 'bengbeng', 2000),
+(20, 5, 'coklat', 2000);
+
+
+create table pesan(
+id int not null auto_increment primary key,
+total int not null
+);
+
+INSERT INTO pesan (id, total) VALUES
+(1, 34000),
+(2, 2000),
+(3, 12000),
+(4, 12000);
+
+
+create table pesan_barang(
+id int not null auto_increment primary key,
+menus_id int not null,
+pesan_id int not null,
+banyak int not null,
+subtotal int not null,
+foreign key (menus_id) references menu(id) ON delete cascade,
+foreign key (pesan_id) references pesan(id) ON delete cascade)
+;
+
+INSERT INTO pesan_barang(id, menus_id, pesan_id, banyak, subtotal) VALUES
+(1, 1, 1, 2, 14000),
+(2, 10, 3, 3, 9000),
+(3, 8, 2, 1, 5000);
